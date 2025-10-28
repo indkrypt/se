@@ -1,0 +1,68 @@
+# Practical: Risk Identification, Monitoring, and Management
+
+def risk_identification():
+    risks = {
+        1: "Malware Detection Failure - The risk that the antivirus may fail to detect or remove new or evolving malware threats.",
+        2: "False Positives - The risk of the antivirus flagging safe files or software as malicious, causing user inconvenience.",
+        3: "System Performance Degradation - The risk that antivirus scans may slow down the computer or consume excessive system resources.",
+        4: "Update Failure - The risk of antivirus definition updates failing due to connectivity issues or server downtime, reducing protection.",
+        5: "Unauthorized Access - The risk of hackers exploiting vulnerabilities within the antivirus software to gain control over the system."
+    }
+    for risk_id, description in risks.items():
+        print(f"Risk ID: {risk_id}\nDescription: {description}\n")
+
+
+def risk_monitoring():
+    risks = {
+        1: "Threat Detection Logs - Regularly monitoring logs to identify missed or undetected malware threats.",
+        2: "User Feedback Reports - Monitoring user feedback to detect complaints about false positives or false negatives.",
+        3: "Performance Monitoring - Tracking CPU, RAM, and disk usage during scans to identify performance-related issues.",
+        4: "Update Monitoring System - Continuously verifying that virus definitions and software updates are applied successfully.",
+        5: "Security Audits - Performing periodic code reviews and penetration testing to identify vulnerabilities in the antivirus software."
+    }
+    for risk_id, description in risks.items():
+        print(f"Risk ID: {risk_id}\nDescription: {description}\n")
+
+
+def risk_management():
+    risks = {
+        1: "AI-Based Threat Detection - Implementing machine learning algorithms to detect new and evolving malware threats effectively.",
+        2: "Whitelisting and Heuristic Controls - Using smart whitelisting to reduce false positives while maintaining threat accuracy.",
+        3: "Optimized Scanning Engine - Designing efficient scanning algorithms to minimize performance impact during system scans.",
+        4: "Redundant Update Servers - Establishing backup update servers and offline update options to ensure reliability.",
+        5: "Secure Coding and Patching - Following secure coding standards and releasing timely patches to fix software vulnerabilities."
+    }
+    for risk_id, description in risks.items():
+        print(f"Risk ID: {risk_id}\nDescription: {description}\n")
+
+
+def main():
+    while True:
+        print("\nSelect an option:")
+        print("1. Risk Identification")
+        print("2. Risk Monitoring")
+        print("3. Risk Management")
+        print("4. Exit")
+
+        choice = input("Enter the number corresponding to your choice (1/2/3/4): ")
+
+        if choice == "1":
+            risk_identification()
+        elif choice == "2":
+            risk_monitoring()
+        elif choice == "3":
+            risk_management()
+        elif choice == "4":
+            print("Exiting the program. Goodbye!")
+            break
+        else:
+            print("Invalid choice. Please enter 1, 2, 3, or 4.")
+
+        continue_choice = input("Do you want to continue? (yes/no): ").strip().lower()
+        if continue_choice != "yes":
+            print("Exiting the program. Goodbye!")
+            break
+
+
+if __name__ == "__main__":
+    main()

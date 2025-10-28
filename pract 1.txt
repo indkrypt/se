@@ -1,0 +1,149 @@
+import tkinter as tk
+from tkinter import messagebox
+
+# --- Data Storage (In-memory for simplicity) ---
+# In a real application, you'd use a database (like SQLite, PostgreSQL, etc.)
+users_db = {}
+
+# --- Registration Window ---
+def open_registration_window():
+    reg_window = tk.Toplevel(root)
+    reg_window.title("Register - Antivirus")
+    reg_window.geometry("300x350")
+    reg_window.configure(bg="#90EE90")  # Light green background
+
+    tk.Label(reg_window, text="Register", font=("Helvetica", 16, "bold"), bg="#90EE90").pack(pady=10)
+
+    tk.Label(reg_window, text="Full Name:", bg="#90EE90").pack(pady=2)
+    name_entry = tk.Entry(reg_window, width=30)
+    name_entry.pack(pady=2)
+
+    tk.Label(reg_window, text="Email:", bg="#90EE90").pack(pady=2)
+    email_entry = tk.Entry(reg_window, width=30)
+    email_entry.pack(pady=2)
+
+    tk.Label(reg_window, text="Username:", bg="#90EE90").pack(pady=2)
+    username_entry = tk.Entry(reg_window, width=30)
+    username_entry.pack(pady=2)
+
+    tk.Label(reg_window, text="Password:", bg="#90EE90").pack(pady=2)
+    password_entry = tk.Entry(reg_window, show="*", width=30)
+    password_entry.pack(pady=2)
+
+    tk.Label(reg_window, text="Confirm Password:", bg="#90EE90").pack(pady=2)
+    confirm_password_entry = tk.Entry(reg_window, show="*", width=30)
+    confirm_password_entry.pack(pady=2)
+
+    def register_user():
+        name = name_entry.get()
+        email = email_entry.get()
+        username = username_entry.get()
+        password = password_entry.get()
+        confirm_password = confirm_password_entry.get()
+
+        if not all([name, email, username, password, confirm_password]):
+            messagebox.showerror("Error", "All fields are required!")
+            return
+
+        if password != confirm_password:
+            messagebox.showerror("Error", "Passwords do not match!")
+            return
+
+        if username in users_db:
+            messagebox.showerror("Error", "Username already exists!")
+            return
+
+        users_db[username] = {
+            "name": name,
+            "email": email,
+            "password": password
+        }
+
+        messagebox.showinfo("Success", "Registered Successfully!")
+        reg_window.destroy()  # Close registration window after success
+
+    register_button = tk.Button(
+        reg_window,
+        text="Register",
+        command=register_user,
+        bg="#4CAF50",
+        fg="white",
+        width=10
+    )
+    register_button.pack(pady=15)
+
+
+# --- Login Window ---
+def open_login_window():
+    login_window = tk.Toplevel(root)
+    login_window.title("Login - Antivirus")
+    login_window.geometry("300x250")
+    login_window.configure(bg="#ADD8E6")  # Light blue background
+
+    tk.Label(login_window, text="Login", font=("Helvetica", 16, "bold"), bg="#ADD8E6").pack(pady=10)
+
+    tk.Label(login_window, text="Username:", bg="#ADD8E6").pack(pady=2)
+    login_username_entry = tk.Entry(login_window, width=30)
+    login_username_entry.pack(pady=2)
+
+    tk.Label(login_window, text="Password:", bg="#ADD8E6").pack(pady=2)
+    login_password_entry = tk.Entry(login_window, show="*", width=30)
+    login_password_entry.pack(pady=2)
+
+    def login_user():
+        username = login_username_entry.get()
+        password = login_password_entry.get()
+
+        if not username or not password:
+            messagebox.showerror("Error", "Username and password are required!")
+            return
+
+        if username in users_db and users_db[username]["password"] == password:
+            messagebox.showinfo("Login Successful", f"Welcome {username}!")
+            login_window.destroy()  # Close login window on success
+        else:
+            messagebox.showerror("Error", "Invalid username or password!")
+
+    login_button = tk.Button(
+        login_window,
+        text="Login",
+        command=login_user,
+        bg="#2196F3",
+        fg="white",
+        width=10
+    )
+    login_button.pack(pady=15)
+
+
+# --- Main Application Window ---
+root = tk.Tk()
+root.title("Antivirus Application")
+root.geometry("400x300")
+root.configure(bg="#f0f0f0")  # Default background
+
+tk.Label(root, text="Welcome to Antivirus!", font=("Arial", 18, "bold"), bg="#f0f0f0").pack(pady=30)
+
+# Buttons to open registration and login windows
+register_btn = tk.Button(
+    root,
+    text="Register New User",
+    command=open_registration_window,
+    width=20,
+    height=2,
+    bg="#4CAF50",
+    fg="white"
+)
+register_btn.pack(pady=10)
+
+login_btn = tk.Button(
+    root,
+    text="Login",
+    command=open_login_window,
+    width=20,
+    height=2,
+    bg="#2196F3",
+    fg="white"
+)
+login_btn.pack(pady=10)
+
+root.mainloop()
